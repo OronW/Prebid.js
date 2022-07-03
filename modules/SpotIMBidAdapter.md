@@ -6,6 +6,7 @@ Module Type: Bidder Adapter
 
 Maintainer:
 
+
 # Description
 
 To use this adapter and for additional information, please contact: 
@@ -14,15 +15,16 @@ To use this adapter and for additional information, please contact:
 This adapter requires setup and approval before being used. 
 
 The adapter supports the following media types: 
-### Banner 
-### Video(instream) 
+##### Banner 
+##### Video(instream) 
+
 
 # Bid Parameters
 
 ## Video
 
-| Name          | Scope | Type | Description                                                       | Example
-|---------------| ----- | ---- |-------------------------------------------------------------------| -------
+| Name          | Scope | Type | Description                                                    | Example
+|---------------| ----- | ---- |----------------------------------------------------------------| -------
 | `org` | required | String |  The org ID, as provided by your representative         | "YOUR-ORG-ID"
 | `floorPrice`  | optional | Number | The minimum price in USD. ATTENTION: misuse of this parameter can impact revenue | 1.50
 | `placementId` | optional | String | A unique placement identifier                                     | "112233"
