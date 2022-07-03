@@ -26,12 +26,12 @@ export const spec = {
   isBidRequestValid: function (bidRequest) {
     let bidRequestValid = true;
     if (!bidRequest?.params?.org) {
-        let warnType = bidRequest.params 
-            ? '** SpotIM adapter warnning - The org param is mandatory **'
-            : '** SpotIM adapter warnning - Verify params property **'
-        
-        logWarn(warnType);
-        bidRequestValid = false;
+      let warnType = bidRequest.params
+        ? '** SpotIM adapter warnning - The org param is mandatory **'
+        : '** SpotIM adapter warnning - Verify params property **'
+
+      logWarn(warnType);
+      bidRequestValid = false;
     }
     return bidRequestValid;
   },
@@ -39,7 +39,7 @@ export const spec = {
     const sharedParamsObject = validBidRequests[0];
     const testMode = sharedParamsObject.params.testMode;
 
-    bidsObject = createBidsObject(sharedParamsObject,bidderRequest, validBidRequests);
+    bidsObject = createBidsObject(sharedParamsObject, bidderRequest, validBidRequests);
 
     return {
       method: 'POST',
@@ -51,7 +51,7 @@ export const spec = {
     let bidResponses = []
 
     if (body?.bids?.length) {
-        bidResponses = parseResponses(body.bids)
+      bidResponses = parseResponses(body.bids)
     }
 
     return bidResponses;
@@ -118,7 +118,7 @@ function getFloor(bid, mediaType) {
  * Get the the ad sizes array from the bid
  * @param {bid} bid
  * @param {mediaType} mediaType
- * @returns {Array} Array of ad sizes 
+ * @returns {Array} Array of ad sizes
  */
 function getSizesArray(bid, mediaType) {
   let bidSizesArray = []
@@ -148,15 +148,15 @@ function getEncodedValIfNotEmpty(val) {
  * @returns {string} The sync method
  */
 function getConfSyncMethod(filterSettings, bidderCode) {
-    const pixelConfigToCheck = 'image';
-    const iframeConfigsToCheck = ['all', 'iframe'];
+  const pixelConfigToCheck = 'image';
+  const iframeConfigsToCheck = ['all', 'iframe'];
 
-    if (filterSettings && iframeConfigsToCheck.some(config => isSyncMethodSupported(filterSettings[config], bidderCode))) {
-        return SUPPORTED_SYNC_METHODS.IFRAME;
-    }
-    if (!filterSettings || !filterSettings[pixelConfigToCheck] || isSyncMethodSupported(filterSettings[pixelConfigToCheck], bidderCode)) {
-        return SUPPORTED_SYNC_METHODS.PIXEL;
-    }
+  if (filterSettings && iframeConfigsToCheck.some(config => isSyncMethodSupported(filterSettings[config], bidderCode))) {
+    return SUPPORTED_SYNC_METHODS.IFRAME;
+  }
+  if (!filterSettings || !filterSettings[pixelConfigToCheck] || isSyncMethodSupported(filterSettings[pixelConfigToCheck], bidderCode)) {
+    return SUPPORTED_SYNC_METHODS.PIXEL;
+  }
 }
 
 /**
@@ -174,21 +174,21 @@ function isSyncMethodSupported(confRule, bidderCode) {
 
 /**
  * Create parameters for each bid
- * @param {Array} validBidRequests 
- * @param {bidderRequest} bidderRequest 
+ * @param {Array} validBidRequests
+ * @param {bidderRequest} bidderRequest
  * @returns {Array} bids array with its parameters
  */
- function createBidParams(validBidRequests, bidderRequest) {
-    const bidsArray = [];
-  
-    if (validBidRequests.length) {
-      validBidRequests.forEach(bidRequest => {
-        bidsArray.push(createBidParameters(bidRequest, bidderRequest));
-      });
-    }
-  
-    return bidsArray;
+function createBidParams(validBidRequests, bidderRequest) {
+  const bidsArray = [];
+
+  if (validBidRequests.length) {
+    validBidRequests.forEach(bidRequest => {
+      bidsArray.push(createBidParameters(bidRequest, bidderRequest));
+    });
   }
+
+  return bidsArray;
+}
 
 /**
  * Get the seller endpoint
@@ -266,11 +266,11 @@ function createBidParameters(bid, bidderRequest) {
     const maxDuration = deepAccess(bid, `mediaTypes.video.maxduration`);
     const skip = deepAccess(bid, `mediaTypes.video.skip`);
     const linearity = deepAccess(bid, `mediaTypes.video.linearity`);
-    const playbackMethod = deepAccess(bid, `mediaTypes.video.playbackmethod`);    
+    const playbackMethod = deepAccess(bid, `mediaTypes.video.playbackmethod`);
     let playbackMethodValue;
 
     if (Array.isArray(playbackMethod) && isInteger(playbackMethod[0])) {
-      // according to OpenRTB 2.5, only the first playbackMethod in the array will be used  
+      // according to OpenRTB 2.5, only the first playbackMethod in the array will be used
       playbackMethodValue = playbackMethod[0];
     } else if (isInteger(playbackMethod)) {
       playbackMethodValue = playbackMethod;
@@ -372,58 +372,58 @@ function createGeneralParams(generalObject, bidderRequest) {
   }
 
   if (bidderRequest && bidderRequest.refererInfo) {
-      commonParams.page_url = deepAccess(bidderRequest, 'refererInfo.page') || deepAccess(window, 'location.href');
-      commonParams.referrer = deepAccess(bidderRequest, 'refererInfo.ref');
-    }
-    
+    commonParams.page_url = deepAccess(bidderRequest, 'refererInfo.page') || deepAccess(window, 'location.href');
+    commonParams.referrer = deepAccess(bidderRequest, 'refererInfo.ref');
+  }
+
   if (generalObject.schain) {
-        commonParams.schain = getSupplyChain(generalObject.schain);
-    }
+    commonParams.schain = getSupplyChain(generalObject.schain);
+  }
 
   return commonParams
 }
 
-function createBidsObject(sharedParamsObject,bidderRequest, validBidRequests) {
-    const bidsObject = {
-        params: createGeneralParams(sharedParamsObject, bidderRequest),
-        bids: createBidParams(validBidRequests, bidderRequest)
-    };
+function createBidsObject(sharedParamsObject, bidderRequest, validBidRequests) {
+  const bidsObject = {
+    params: createGeneralParams(sharedParamsObject, bidderRequest),
+    bids: createBidParams(validBidRequests, bidderRequest)
+  };
 
-    return bidsObject;
+  return bidsObject;
 }
 
 function parseResponses(bidResponses) {
-    let bidsArray = [];
+  let bidsArray = [];
 
-    bidResponses.forEach(bid => {
-          const bidResponse = {
-            requestId: bid.requestId,
-            currency: bid.currency || DEFAULT_CURRENCY,
-            width: bid.width,
-            height: bid.height,
-            ttl: bid.ttl || TTL,
-            cpm: bid.cpm,
-            creativeId: bid.requestId,
-            netRevenue: bid.netRevenue || true,
-            nurl: bid.nurl,
-            mediaType: bid.mediaType,
-            meta: {
-              mediaType: bid.mediaType
-            }
-          };
-  
-          if (bid.mediaType === VIDEO) {
-            bid.vastXml = bid.vastXml;
-          } else if (bid.mediaType === BANNER) {
-            bid.ad = bid.ad;
-          }
-  
-          if (bid.adomain && bid.adomain.length) {
-            bid.meta.advertiserDomains = bid.adomain;
-          }
-  
-          bidsArray.push(bidResponse);
-        });
+  bidResponses.forEach(bid => {
+    const bidResponse = {
+      requestId: bid.requestId,
+      currency: bid.currency || DEFAULT_CURRENCY,
+      width: bid.width,
+      height: bid.height,
+      ttl: bid.ttl || TTL,
+      cpm: bid.cpm,
+      creativeId: bid.requestId,
+      netRevenue: bid.netRevenue || true,
+      nurl: bid.nurl,
+      mediaType: bid.mediaType,
+      meta: {
+        mediaType: bid.mediaType
+      }
+    };
+
+    if (bid.mediaType === VIDEO) {
+      bid.vastXml = bid.vastXml;
+    } else if (bid.mediaType === BANNER) {
+      bid.ad = bid.ad;
+    }
+
+    if (bid.adomain && bid.adomain.length) {
+      bid.meta.advertiserDomains = bid.adomain;
+    }
+
+    bidsArray.push(bidResponse);
+  });
 }
 
 /**
@@ -431,20 +431,20 @@ function parseResponses(bidResponses) {
  * @param {Object} schainObject
  * @returns {string} schain string
  */
- function getSupplyChain(schainObject) {
-    let scStr = `${schainObject.ver},${schainObject.complete}`;
-  
-    if (isEmpty(schainObject)) {
-      return '';
-    }
-    schainObject.nodes.forEach((node) => {
-      scStr += '!';
-      scStr += `${getEncodedValIfNotEmpty(node.asi)},`;
-      scStr += `${getEncodedValIfNotEmpty(node.sid)},`;
-      scStr += `${node.hp ? encodeURIComponent(node.hp) : ''},`;
-      scStr += `${getEncodedValIfNotEmpty(node.rid)},`;
-      scStr += `${getEncodedValIfNotEmpty(node.name)},`;
-      scStr += `${getEncodedValIfNotEmpty(node.domain)}`;
-    });
-    return scStr;
+function getSupplyChain(schainObject) {
+  let scStr = `${schainObject.ver},${schainObject.complete}`;
+
+  if (isEmpty(schainObject)) {
+    return '';
   }
+  schainObject.nodes.forEach((node) => {
+    scStr += '!';
+    scStr += `${getEncodedValIfNotEmpty(node.asi)},`;
+    scStr += `${getEncodedValIfNotEmpty(node.sid)},`;
+    scStr += `${node.hp ? encodeURIComponent(node.hp) : ''},`;
+    scStr += `${getEncodedValIfNotEmpty(node.rid)},`;
+    scStr += `${getEncodedValIfNotEmpty(node.name)},`;
+    scStr += `${getEncodedValIfNotEmpty(node.domain)}`;
+  });
+  return scStr;
+}

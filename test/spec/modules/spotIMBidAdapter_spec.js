@@ -53,10 +53,10 @@ describe('spotIMBidAdapter', function () {
         'auctionId': 'sk290kd5-5524-1635-6245-s92jtid8456t',
         'sizes': [[640, 480]],
         'mediaTypes': {
-            'video': {
-                'playerSize': [[640, 480]],
-                'context': 'instream'
-            }
+          'video': {
+            'playerSize': [[640, 480]],
+            'context': 'instream'
+          }
         },
         'params': {
           'org': 'YOUR-ORG-ID'
@@ -71,8 +71,8 @@ describe('spotIMBidAdapter', function () {
         'auctionId': 'sk290kd5-5524-1635-6245-s92jtid8456t',
         'sizes': [[300, 250]],
         'mediaTypes': {
-            'banner': {
-            }
+          'banner': {
+          }
         },
         'params': {
           'org': 'YOUR-ORG-ID'
