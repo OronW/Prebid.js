@@ -26,7 +26,7 @@ The adapter supports the following media types:
 | Name          | Scope | Type | Description                                                    | Example
 |---------------| ----- | ---- |----------------------------------------------------------------| -------
 | `org` | required | String |  The org ID, as provided by your representative         | "YOUR-ORG-ID"
-| `floorPrice`  | optional | Number | The minimum price in USD. ATTENTION: misuse of this parameter can impact revenue | 1.50
+| `floorPrice`  | optional | Number | The minimum price in USD. ATTENTION: misuse of this parameter can impact revenue | 1.30
 | `placementId` | optional | String | A unique placement identifier                                     | "112233"
 | `testMode`    | optional | Boolean | Parameter to activate test mode                                      | false
 
