@@ -15,8 +15,8 @@ To use this adapter and for additional information, please contact:
 This adapter requires setup and approval before being used. 
 
 The adapter supports the following media types: 
-##### Banner 
-##### Video(instream) 
+* Banner 
+* Video(instream) 
 
 
 # Bid Parameters
