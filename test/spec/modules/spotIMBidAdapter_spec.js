@@ -319,16 +319,16 @@ describe('spotIMBidAdapter', function () {
     };
 
     const expectedVideoResponse = {
+      requestId: '21e12606d47ba7',
+      currency: 'USD',
+      width: 640,
+      height: 480,
+      ttl: TTL,
       cpm: 12.5,
       creativeId: '21e12606d47ba7',
-      mediaType: VIDEO,
-      nurl: 'http://example.com/win/1234',
       netRevenue: true,
-      ttl: TTL,
-      currency: 'USD',
-      requestId: '21e12606d47ba7',
-      height: 480,
-      width: 640,
+      nurl: 'http://example.com/win/1234',
+      mediaType: VIDEO,
       meta: {
         mediaType: VIDEO,
         advertiserDomains: ['abc.com']
@@ -337,16 +337,16 @@ describe('spotIMBidAdapter', function () {
     };
 
     const expectedBannerResponse = {
+      requestId: '21e12606d47ba7',
+      currency: 'USD',
+      width: 640,
+      height: 480,
+      ttl: TTL,
       cpm: 12.5,
       creativeId: '21e12606d47ba7',
-      mediaType: BANNER,
-      nurl: 'http://example.com/win/1234',
       netRevenue: true,
-      ttl: TTL,
-      currency: 'USD',
-      requestId: '21e12606d47ba7',
-      height: 480,
-      width: 640,
+      nurl: 'http://example.com/win/1234',
+      mediaType: BANNER,
       meta: {
         mediaType: BANNER,
         advertiserDomains: ['abc.com']

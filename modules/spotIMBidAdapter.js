@@ -39,7 +39,7 @@ export const spec = {
     const sharedParamsObject = validBidRequests[0];
     const testMode = sharedParamsObject.params.testMode;
 
-    bidsObject = createBidsObject(sharedParamsObject, bidderRequest, validBidRequests);
+    const bidsObject = createBidsObject(sharedParamsObject, bidderRequest, validBidRequests);
 
     return {
       method: 'POST',
@@ -167,7 +167,7 @@ function getConfSyncMethod(filterSettings, bidderCode) {
  */
 function isSyncMethodSupported(confRule, bidderCode) {
   const isInclude = confRule?.filter === 'include';
-  const bidders = isArray(confRule.bidders) ? confRule.bidders : [bidderCode];
+  const bidders = isArray(confRule?.bidders) ? confRule.bidders : [bidderCode];
 
   return confRule ? isInclude && contains(bidders, bidderCode) : false;
 }
@@ -231,10 +231,10 @@ function getDeviceType(userAgent) {
 function createBidParameters(bid, bidderRequest) {
   const {params} = bid;
   const gpid = deepAccess(bid, `ortb2Imp.ext.gpid`);
-  const placementId = params.placementId || deepAccess(bid, `mediaTypes.${mediaType}.name`);
-  const sizesArray = getSizesArray(bid, mediaType);
   const correctedFloorPrice = isNaN(params.floorPrice) ? 0 : params.floorPrice;
   const mediaType = isBanner(bid) ? BANNER : VIDEO;
+  const sizesArray = getSizesArray(bid, mediaType);
+  const placementId = params.placementId || deepAccess(bid, `mediaTypes.${mediaType}.name`);
   const pos = deepAccess(bid, `mediaTypes.${mediaType}.pos`);
 
   const bidObject = {
@@ -393,7 +393,7 @@ function createBidsObject(sharedParamsObject, bidderRequest, validBidRequests) {
 }
 
 function parseResponses(bidResponses) {
-  let bidsArray = [];
+  const bidsArray = [];
 
   bidResponses.forEach(bid => {
     const bidResponse = {
@@ -413,17 +413,19 @@ function parseResponses(bidResponses) {
     };
 
     if (bid.mediaType === VIDEO) {
-      bid.vastXml = bid.vastXml;
+      bidResponse.vastXml = bid.vastXml;
     } else if (bid.mediaType === BANNER) {
-      bid.ad = bid.ad;
+      bidResponse.ad = bid.ad;
     }
 
     if (bid.adomain && bid.adomain.length) {
-      bid.meta.advertiserDomains = bid.adomain;
+      bidResponse.meta.advertiserDomains = bid.adomain;
     }
 
     bidsArray.push(bidResponse);
   });
+
+  return bidsArray;
 }
 
 /**
