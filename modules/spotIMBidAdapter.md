@@ -4,13 +4,13 @@ Module Name: SpotIM Bidder Adapter
 
 Module Type: Bidder Adapter
 
-Maintainer:
+Maintainer: amir.g@openweb.com
 
 
 # Description
 
 To use this adapter and for additional information, please contact: 
-
+`amir.g@openweb.com`
 
 This adapter requires setup and approval before being used. 
 
