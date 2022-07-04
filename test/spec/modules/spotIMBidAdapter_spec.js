@@ -5,8 +5,8 @@ import { config } from 'src/config.js';
 import { BANNER, VIDEO } from '../../../src/mediaTypes.js';
 import * as utils from 'src/utils.js';
 
-const ENDPOINT = 'https://hb.spotimmedia.com/spotim-hb-multi';
-const TEST_ENDPOINT = 'https://hb.spotimmedia.com/spotim-hb-multi-test';
+const ENDPOINT = 'https://hb.spotimmedia.com/hb-multi-si';
+const TEST_ENDPOINT = 'https://hb.spotimmedia.com/hb-multi-si-test';
 const TTL = 360;
 /* eslint no-console: ["error", { allow: ["log", "warn", "error"] }] */
 

@@ -10,8 +10,8 @@ const TTL = 400;
 const SUPPORTED_TYPES = [BANNER, VIDEO];
 const SELLER_ENDPOINT = 'https://hb.spotimmedia.com/';
 const MODES = {
-  PRODUCTION: 'spotim-hb-multi',
-  TEST: 'spotim-hb-multi-test'
+  PRODUCTION: 'hb-multi-si',
+  TEST: 'hb-multi-si-test'
 }
 const SUPPORTED_SYNC_METHODS = {
   IFRAME: 'iframe',
